@@ -57,7 +57,7 @@ impl Jira {
         Ok(Jira {
             host: host.into(),
             credentials: credentials,
-            client: Client::new()?,
+            client: Client::new(),
         })
     }
 
@@ -114,7 +114,7 @@ impl Jira {
         let url = format!("{}/rest/api/latest{}", self.host, endpoint);
         debug!("url -> {:?}", url);
 
-        let mut req = self.client.request(method, &url)?;
+        let mut req = self.client.request(method, &url);
         let builder = match self.credentials {
             Credentials::Basic(ref user, ref pass) => {
                 req.header(Authorization(Basic {
